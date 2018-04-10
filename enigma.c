@@ -4,23 +4,6 @@
 #include <string.h>
 #include <ctype.h>
 
-
-/*
-Larger questions regarding C:
-
-Does all assignment have to occur within a function defition?
-It does not seem like there are classes in C. Is it considered object-oriented?
-Are structs the closest thing to classes in C?
-*/
-
-/*
-Test questions:
-Validity of rotor positions?
-Validity of input string?
-Should everything be a constant? (No lterals)
-
-*/
-
 const char LETTERS[27] = {'A','B','C','D','E','F','G','H','I','J',
                           'K','L','M','N','O','P','Q','R','S','T',
 						  'U','V','W','X','Y','Z', ' '};
@@ -119,6 +102,28 @@ int main(int argc, char *argv[] )
 	int input_text_size;
 
 	//STEP #1: Get and check Command Line Arguments
+  // argc should be 5
+  // argv[1] <- digit; argv[2] <- digit, argv[3] <- digit, argv[4] <- char
+  printf("%d\n", argc);
+
+  printf("Return values: %d %d %d\n", isdigit(*argv[1]), isdigit(*argv[2]), isdigit(*argv[3]));
+
+
+  if (isdigit(*argv[1]) == 0 || isdigit(*argv[2]) == 0 || isdigit(*argv[3]) == 0) {
+    printf("One of the rotor positions is not a digit - closing program.\n");
+    return EXIT_FAILURE;
+    }
+
+  rotorPosition1 = atoi(argv[1]); 
+  rotorPosition2 = atoi(argv[2]); 
+  rotorPosition3 = atoi(argv[3]);
+
+  if (rotorPosition1 < 0 || rotorPosition1 > 9 || rotorPosition2 < 0 || rotorPosition2 > 9 || rotorPosition3 < 0 || rotorPosition3 > 9) {
+      printf("The rotor values must be between 0-9. closing program.\n");
+      return EXIT_FAILURE;
+  }
+  
+
 	printf(">>engima: ");
 	scanf("%d %d %d %c", &rotorPosition1, &rotorPosition2,
 		&rotorPosition3, &mode);
