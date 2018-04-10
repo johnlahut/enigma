@@ -104,13 +104,17 @@ int main(int argc, char *argv[] )
 	//STEP #1: Get and check Command Line Arguments
   // argc should be 5
   // argv[1] <- digit; argv[2] <- digit, argv[3] <- digit, argv[4] <- char
-  printf("%d\n", argc);
+  // printf("%d\n", argc);
 
-  printf("Return values: %d %d %d\n", isdigit(*argv[1]), isdigit(*argv[2]), isdigit(*argv[3]));
+  // printf("Return values: %d %d %d\n", isdigit(*argv[1]), isdigit(*argv[2]), isdigit(*argv[3]));
 
+  if (argc != 5) {
+    printf("Incorrect number of command line arguemnts - closing program.\n");
+    return EXIT_FAILURE;
+  }
 
-  if (isdigit(*argv[1]) == 0 || isdigit(*argv[2]) == 0 || isdigit(*argv[3]) == 0) {
-    printf("One of the rotor positions is not a digit - closing program.\n");
+  if (isdigit(*argv[1]) == 0 || isdigit(*argv[2]) == 0 || isdigit(*argv[3]) == 0 || isalpha(*argv[4]) == 0) {
+    printf("One of the command line arguments is not a valid data type.\n");
     return EXIT_FAILURE;
     }
 
@@ -121,18 +125,14 @@ int main(int argc, char *argv[] )
   if (rotorPosition1 < 0 || rotorPosition1 > 9 || rotorPosition2 < 0 || rotorPosition2 > 9 || rotorPosition3 < 0 || rotorPosition3 > 9) {
       printf("The rotor values must be between 0-9. closing program.\n");
       return EXIT_FAILURE;
-  }
-  
-
-	printf(">>engima: ");
-	scanf("%d %d %d %c", &rotorPosition1, &rotorPosition2,
-		&rotorPosition3, &mode);
+    }
 
   	// output init rotor values
   	printf("Rotor #1 is set to: %d\n", rotorPosition1);
   	printf("Rotor #2 is set to: %d\n", rotorPosition2);
   	printf("Rotor #3 is set to: %d\n", rotorPosition3);
-  	mode = tolower(mode);
+  	// mode = tolower(*argv[4]);
+    mode = *argv[4];
 
     //STEP #2: Get text string from user
   	//STEP #3: For each letter, encrypt or decrypt
@@ -160,7 +160,7 @@ int main(int argc, char *argv[] )
 
   	//unknown command - exit
   	else {
-  		printf("Unknown command.\n");
+  		printf("Unknown command '%c'.\n", mode);
   		return EXIT_FAILURE;
   	}
 
